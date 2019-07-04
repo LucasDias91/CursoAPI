@@ -12,21 +12,32 @@ namespace CursoAPI.Controllers
     public class UsuariosController : ApiController
     {
 
-        [HttpGet]
+        
+        // Get - Lista todos os usuários. 
+        [HttpGet] 
         public HttpResponseMessage getUsuario()
         {
+            // Criando menssagem.
             HttpResponseMessage _response = new HttpResponseMessage();
 
+            //Tentando
             try
             {
+                // Obtendo todos os usuários.
                 List<UsuariosDTO> _usuarios = (new UsuariosDAO().SelectUsuarios());
+
+                // Criando response de sucesso da requisição com a lista de usuários.
                 _response = Request.CreateResponse(HttpStatusCode.OK, _usuarios);
             }
+
+            //Pegando erro. 
             catch (Exception ex)
             {
+                //Criando response 
                 _response = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
 
+            //Retornando mensagem. 
             return _response;
         }
 

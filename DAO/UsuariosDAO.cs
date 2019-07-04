@@ -10,53 +10,69 @@ namespace CursoAPI.DAO
 {
     public class UsuariosDAO
     {
-        //Inicializando a instância do banco de dados
+        //Inicializando o banco de dados 
         CursoConnectionString dbCurso = new CursoConnectionString();
 
-        //Retorna todas os usuários.
+        //Query para retornar todos usuários.
         public List<UsuariosDTO> SelectUsuarios()
         {
+            //Selecinando todos os usuários e colocando em uma lista.
             List<UsuariosDTO> _usuarios = dbCurso.Usuarios
                                                  .ToList();
-
+            //Retornando lista de usuários.
             return _usuarios;
         }
 
-        //Retorna um usuário.
+        //Query para retornar um usuário
         public UsuariosDTO SelectUsuario(int idusuario)
         {
+            //Selecinando o usuário e colocando em um array.
             UsuariosDTO _usuario = dbCurso.Usuarios
                                            .Where((x => x.idusuario == idusuario))
                                            .FirstOrDefault();
 
+            //Retornando array de usuário.
             return _usuario;
         }
 
-        //Insere um novo usuário.
+        //Query para inserir um novo usuário
         public string InsertUsuario(UsuariosDTO Usuario)
         {
+            //Inserindo um novo usuário.
             dbCurso.Usuarios.Add(Usuario);
+
+            //Efetivando no banco de dados.
             dbCurso.SaveChanges();
 
+            //Retornando menssagem.
             return "Usuário salvo com sucesso!";
         }
 
-        //Altera um usuário existente.
+        //Query para alterar um usuário existente
         public string UpdateUsuario(UsuariosDTO Usuario)
         {
+            // Fazendo o update.
             dbCurso.Entry(Usuario).State = EntityState.Modified;
+
+            // Efetivando no banco de dados.
             dbCurso.SaveChanges();
 
+            //Retornando uma mensagem..
             return "Usuário alterado com sucesso!";
         }
 
-        //Delete um usuário existente.
+        //Query para excluir um usuário existente do banco de dados
         public string DeleteUsuario(int idusuario)
         {
             var _usuarioToRemove = SelectUsuario(idusuario);
 
+            // Fazendo o exclusão...
             dbCurso.Entry(_usuarioToRemove).State= EntityState.Deleted;
+
+            // Efetivando no banco de dados...
             dbCurso.SaveChanges();
+
+            //Retornando uma mensagem... 
             return "Usuário deletado com sucesso!";
         }
 
