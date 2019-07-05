@@ -40,7 +40,7 @@ namespace CursoAPI
 
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim("idusuario", _usuario.idusuario.ToString()));
             identity.AddClaim(new Claim("role", "user"));
             context.Validated(identity);
 
