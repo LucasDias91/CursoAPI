@@ -76,5 +76,17 @@ namespace CursoAPI.DAO
             return "Usuário deletado com sucesso!";
         }
 
+        //Query para retornar todos usuários.
+        public UsuariosDTO SelectUsuarioPorCredenciais(string usuario, string senha)
+        {
+            //Selecinando o usuário e colocando em um array.
+            UsuariosDTO _usuario = dbCurso.Usuarios
+                                           .Where((x => x.usuario == usuario && x.senha == senha))
+                                           .FirstOrDefault();
+
+            //Retornando array de usuário.
+            return _usuario;
+        }
+
     }
 }
