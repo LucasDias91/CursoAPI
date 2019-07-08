@@ -42,13 +42,13 @@ namespace CursoAPI.DAO
         //Query para inserir um novo usuário
         public string InsertProduto(int idusuario, string produto,string descricao, int quantidade)
         {
-            dbCurso.Database.SqlQuery<string>("exec spu_InsertProduto @idusuario, @produto ,@descricao, @quantidade",
+           string msg = dbCurso.Database.SqlQuery<string>("exec spu_InsertProduto @idusuario, @produto ,@descricao, @quantidade",
                 new SqlParameter("@idusuario", idusuario),
                 new SqlParameter("@produto", produto),
                 new SqlParameter("@descricao", descricao),
                 new SqlParameter("@quantidade", quantidade))
                 .FirstOrDefault();
-            return "Inserido com sucesso!";
+            return msg;
         }
 
         //Query para alterar um produto existente

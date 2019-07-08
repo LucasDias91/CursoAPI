@@ -8,21 +8,21 @@ namespace CursoAPI.DTO
 {
     public class ProdutosDTO
     {
-        public int idProduto { get; set; }
+        public int idproduto { get; set; }
 
 
-        public int idUsuario { get; set; }
+        public int idusuario { get; set; }
 
         [Required
         (ErrorMessage = "Produto é obrigatório", AllowEmptyStrings = false)]
-        public string Produto { get; set; }
+        public string produto { get; set; }
 
         [Required
         (ErrorMessage = "Descricao é obrigatório", AllowEmptyStrings = false)]
-        public string Descricao { get; set; }
+        public string descricao { get; set; }
 
         [Required
          (ErrorMessage = "Quantidade é obrigatório", AllowEmptyStrings = false)]
-        public int Quantidade { get; set; }
+        public int quantidade { get; set; }
     }
 }

@@ -96,7 +96,7 @@ namespace CursoAPI.Controllers
                 int idUsuario = (new SessaoDAO().SelectIdUsuario());
 
                 //Inserindo produto no banco de dados 
-                string msg = (new ProdutosDAO().InsertProduto(idUsuario, Produto.Produto, Produto.Descricao, Produto.Quantidade));
+                string msg = (new ProdutosDAO().InsertProduto(idUsuario, Produto.produto, Produto.descricao, Produto.quantidade));
 
                 //Criando mensagem de sucesso!
                 _response = Request.CreateResponse(HttpStatusCode.OK, msg);
@@ -134,7 +134,7 @@ namespace CursoAPI.Controllers
                 int idUsuario = (new SessaoDAO().SelectIdUsuario());
 
                 //Alterando usuário no banco de dados 
-                string msg = (new ProdutosDAO().UpdateProduto(idUsuario, Produto.idProduto, Produto.Produto, Produto.Descricao, Produto.Quantidade));
+                string msg = (new ProdutosDAO().UpdateProduto(idUsuario, Produto.idproduto, Produto.produto, Produto.descricao, Produto.quantidade));
                 //Criando mensagem de sucesso!
                 _response = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
