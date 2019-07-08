@@ -9,13 +9,13 @@ using System.Web.Http;
 
 namespace CursoAPI.Controllers
 {
-    public class UsuariosController : ApiController
+    public class ProdutosController : ApiController
     {
 
-        // Get - Lista todos os usuários. 
+        // Get - Lista todos os produtos. 
         [HttpGet]
         [Authorize]
-        public HttpResponseMessage getUsuario()
+        public HttpResponseMessage getProdutos()
         {
             // Inicializando menssagem.
             HttpResponseMessage _response = new HttpResponseMessage();
@@ -23,11 +23,14 @@ namespace CursoAPI.Controllers
             //Tentando
             try
             {
-                // Obtendo todos os usuários.
-                List<UsuariosDTO> _usuarios = (new UsuariosDAO().SelectUsuarios());
+                //Obtendo idUsuario
+                int idusuario = (new SessaoDAO().SelectIdUsuario());
 
-                // Criando response de sucesso da requisição com a lista de usuários.
-                _response = Request.CreateResponse(HttpStatusCode.OK, _usuarios);
+                // Obtendo todos os produtos.
+                List<ProdutosDTO> _produtos = (new ProdutosDAO().SelectProdutos(idusuario));
+
+                // Criando response de sucesso da requisição com a lista de produtos.
+                _response = Request.CreateResponse(HttpStatusCode.OK, _produtos);
             }
 
             //Pegando erro. 
@@ -44,18 +47,21 @@ namespace CursoAPI.Controllers
         // Get - Lista um usuário. 
         [HttpGet]
         [Authorize]
-        public HttpResponseMessage getUsuario([FromUri] int idUsuario)
+        public HttpResponseMessage getProduto([FromUri] int idProduto)
         {
             // Inicializando mensagem.
             HttpResponseMessage _response = new HttpResponseMessage();
 
             try
             {
-                // Obtendo usuário pelo o id.
-                UsuariosDTO _usuario = (new UsuariosDAO().SelectUsuario(idUsuario));
+                //Obtendo idUsuario
+                int idUsuario = (new SessaoDAO().SelectIdUsuario());
 
-                // Criando response de sucesso com o usuário.
-                _response = Request.CreateResponse(HttpStatusCode.OK, _usuario);
+                // Obtendo produto pelo o id.
+                ProdutosDTO _produto = (new ProdutosDAO().SelectProduto(idUsuario, idProduto));
+
+                // Criando response de sucesso com o produto.
+                _response = Request.CreateResponse(HttpStatusCode.OK, _produto);
             }
             //Pegando erro. 
             catch (Exception ex)
@@ -68,9 +74,10 @@ namespace CursoAPI.Controllers
             return _response;
         }
 
-        // Post - Inserindo um novo usuário. 
+        // Post - Inserindo um novo produto. 
         [HttpPost]
-        public HttpResponseMessage postUsuario([FromBody] UsuariosDTO Usuario)
+        [Authorize]
+        public HttpResponseMessage postProduto([FromBody] ProdutosDTO Produto)
         {
             // Inicializando mensagem.
             HttpResponseMessage _response = new HttpResponseMessage();
@@ -85,8 +92,11 @@ namespace CursoAPI.Controllers
 
             try
             {
-                //Inserindo usuário no banco de dados 
-                string msg = (new UsuariosDAO().InsertUsuario(Usuario));
+                //Obtendo idUsuario
+                int idUsuario = (new SessaoDAO().SelectIdUsuario());
+
+                //Inserindo produto no banco de dados 
+                string msg = (new ProdutosDAO().InsertProduto(idUsuario, Produto.Produto, Produto.Descricao, Produto.Quantidade));
 
                 //Criando mensagem de sucesso!
                 _response = Request.CreateResponse(HttpStatusCode.OK, msg);
@@ -105,7 +115,7 @@ namespace CursoAPI.Controllers
         // Put - Alterando usuário. 
         [HttpPut]
         [Authorize]
-        public HttpResponseMessage putUsuario([FromBody] UsuariosDTO Usuario)
+        public HttpResponseMessage putProduto([FromBody] ProdutosDTO Produto)
         {
             // Inicializando mensagem.
             HttpResponseMessage _response = new HttpResponseMessage();
@@ -120,8 +130,11 @@ namespace CursoAPI.Controllers
 
             try
             {
+                //Obtendo idUsuario
+                int idUsuario = (new SessaoDAO().SelectIdUsuario());
+
                 //Alterando usuário no banco de dados 
-                string msg = (new UsuariosDAO().UpdateUsuario(Usuario));
+                string msg = (new ProdutosDAO().UpdateProduto(idUsuario, Produto.idProduto, Produto.Produto, Produto.Descricao, Produto.Quantidade));
                 //Criando mensagem de sucesso!
                 _response = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
@@ -135,18 +148,22 @@ namespace CursoAPI.Controllers
             return _response;
         }
 
-        //Delete - Deletando um usuário
+        //Delete - Deletando um produto
         [HttpDelete]
         [Authorize]
-        public HttpResponseMessage deleteUsuario([FromUri] int idUsuario)
+        public HttpResponseMessage deleteProduto([FromUri] int idProduto)
         {
             // Inicializando mensagem.
             HttpResponseMessage _response = new HttpResponseMessage();
 
             try
             {
+
+                //Obtendo idUsuario
+                int idUsuario = (new SessaoDAO().SelectIdUsuario());
+
                 //Deletando usuário do banco de dados 
-                string msg = (new UsuariosDAO().DeleteUsuario(idUsuario));
+                string msg = (new ProdutosDAO().DeleteProduto(idUsuario, idProduto));
                 //Criando mensagem de sucesso!
                 _response = Request.CreateResponse(HttpStatusCode.OK, msg);
             }
@@ -161,3 +178,5 @@ namespace CursoAPI.Controllers
         }
     }
 }
+
+

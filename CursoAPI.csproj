@@ -130,9 +130,13 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\SqlDefaultValueAttribute.cs" />
+    <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="DAO\ProdutosDAO.cs" />
+    <Compile Include="DAO\SessaoDAO.cs" />
     <Compile Include="DAO\UsuariosDAO.cs" />
     <Compile Include="DB_Context\CursoConnectionString.cs" />
+    <Compile Include="DTO\ProdutosDTO.cs" />
     <Compile Include="DTO\UsuariosDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
