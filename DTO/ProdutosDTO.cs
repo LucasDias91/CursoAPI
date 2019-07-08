@@ -10,8 +10,7 @@ namespace CursoAPI.DTO
     {
         public int idProduto { get; set; }
 
-        [Required
-        (ErrorMessage = "idUsuario é obrigatório", AllowEmptyStrings = false)]
+
         public int idUsuario { get; set; }
 
         [Required

@@ -15,7 +15,7 @@ namespace CursoAPI.Controllers
         // Get - Lista todos os usuários. 
         [HttpGet]
         [Authorize]
-        public HttpResponseMessage getUsuario()
+        public HttpResponseMessage getUsuarios()
         {
             // Inicializando menssagem.
             HttpResponseMessage _response = new HttpResponseMessage();
@@ -44,13 +44,17 @@ namespace CursoAPI.Controllers
         // Get - Lista um usuário. 
         [HttpGet]
         [Authorize]
-        public HttpResponseMessage getUsuario([FromUri] int idUsuario)
+        [Route("api/usuario")]
+        public HttpResponseMessage getUsuario()
         {
             // Inicializando mensagem.
             HttpResponseMessage _response = new HttpResponseMessage();
 
             try
             {
+                //Obtendo idUsuario
+                int idUsuario = (new SessaoDAO().SelectIdUsuario());
+
                 // Obtendo usuário pelo o id.
                 UsuariosDTO _usuario = (new UsuariosDAO().SelectUsuario(idUsuario));
 
